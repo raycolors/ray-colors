@@ -39,7 +39,7 @@ require('http').createServer((req, res) => {
         let data = '';
         apiRes.on('data', chunk => data += chunk);
         apiRes.on('end', () => {
-          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
           res.end(data);
         });
       });
