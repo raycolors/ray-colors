@@ -15,6 +15,7 @@ require('http').createServer((req, res) => {
 
   if (req.method === 'POST' && req.url === '/api') {
     let body = '';
+    req.setEncoding('utf8');
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
       const input = JSON.parse(body);
@@ -29,16 +30,17 @@ require('http').createServer((req, res) => {
         path: '/v1/messages',
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
           'x-api-key': API_KEY,
           'anthropic-version': '2023-06-01'
         }
       };
 
       const apiReq = https.request(options, apiRes => {
-        let data = '';
-        apiRes.on('data', chunk => data += chunk);
+        const chunks = [];
+        apiRes.on('data', chunk => chunks.push(chunk));
         apiRes.on('end', () => {
+          const data = Buffer.concat(chunks).toString('utf8');
           res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
           res.end(data);
         });
