@@ -58,6 +58,6 @@ require('http').createServer((req, res) => {
     res.writeHead(404);
     res.end('Not found');
   }
-}).listen(process.env.PORT || 3000);
+}).listen(process.env.PORT || 10000);
 
 console.log('Server running!');
