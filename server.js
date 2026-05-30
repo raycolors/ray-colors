@@ -20,7 +20,7 @@ require('http').createServer((req, res) => {
     req.on('end', () => {
       const input = JSON.parse(body);
       const payload = JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1000,
         messages: input.messages
       });
